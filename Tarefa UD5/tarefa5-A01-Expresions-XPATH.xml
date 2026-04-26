@@ -1,0 +1,66 @@
+<!-- 
+Apelidos y nome: Lanza Longart Noelieth
+Data de creación: 26-04-2026
+Nome do ficheiro: lanza_longart_noelieth_LMSXI_UD05_A01
+Descripción: Resultado das expresións XPath da tarefa UD05 A01
+-->
+
+<!-- a) Máquinas con nomes que comezan por "PC". -->
+
+/equipos/maquina[starts-with(@nome,'PC')]
+
+
+<!-- b) O nome das máquinas con máis dun disco duro. -->
+
+/equipos/maquina[count(hardware/disco) > 1]/@nome
+
+
+<!-- c) A suma das capacidades dos discos duros de tipo "SCSI". -->
+
+sum(/equipos/maquina/hardware/disco[@tecnoloxia='SCSI']/@capacidade)
+
+
+<!-- d) Os nomes das máquinas cuxa capacidade de memoria se coñece, pero non a tecnoloxía desa memoria. -->
+
+/equipos/maquina[hardware/memoria and not(hardware/memoria/@tecnoloxia)]/@nome
+
+
+<!-- e) Máquinas con sistemas operativos Windows e unidades de DVD. -->
+
+/equipos/maquina[
+contains(config/OS,'Windows')
+and
+(hardware/gravadora[@tipo='DVD'] or hardware/lectora[@tipo='DVD'])
+]/@nome
+
+
+<!-- f) O nome da máquina e o sistema operativo para as máquinas con máis dun disco duro. -->
+
+/equipos/maquina[count(hardware/disco) > 1]/@nome |
+/equipos/maquina[count(hardware/disco) > 1]/config/OS
+
+
+<!-- g) A configuración daquelas máquinas que teñen un enderezo IP listado, pero non a porta de enlace. -->
+
+/equipos/maquina[config/IP and not(config/gateway)]/config
+
+
+<!-- h) Os enderezos IP dentro da rede 192.168.10.0/24. -->
+
+/equipos/maquina/config/IP[starts-with(.,'192.168.10.')]
+
+
+<!--i) Os nomes das máquinas cun procesador multinúcleo e 2 GB ou menos de memoria. -->
+
+/equipos/maquina[
+hardware/procesador[@num_nucleos > 1]
+and
+hardware/memoria <= 2
+]/@nome
+
+
+<!-- j) Máquinas que teñen un disco duro (un ou máis) cunha capacidade total inferior a 80 GB. -->
+
+/equipos/maquina[
+sum(hardware/disco/@capacidade) < 80
+]/@nome
