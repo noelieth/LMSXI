@@ -47,9 +47,9 @@
                 <h1>Resultados de Expresiones XPath</h1>
 
                 <!-- a -->
-                <h2>a) Máquinas con nombre comenzando por "PC"</h2>
+                <h2>a) Máquinas con nomes que comezan por "PC".</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[starts-with(@nome,'PC')]">
+                    <xsl:for-each select="equipos/maquina[starts-with(@nome,'PC')]">
                         <li>
                             <xsl:value-of select="@nome"/>
                         </li>
@@ -57,9 +57,9 @@
                 </ul>
 
                 <!-- b -->
-                <h2>b) Nombre de las máquinas con más de un disco duro</h2>
+                <h2>b) O nome das máquinas con máis dun disco duro.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[count(hardware/disco) &gt; 1]">
+                    <xsl:for-each select="equipos/maquina[count(hardware/disco) &gt; 1]">
                         <li>
                             <xsl:value-of select="@nome"/>
                         </li>
@@ -67,15 +67,15 @@
                 </ul>
 
                 <!-- c -->
-                <h2>c) Suma de capacidades de discos SCSI</h2>
+                <h2>c) A suma das capacidades dos discos duros de tipo "SCSI".</h2>
                 <div class="resultado">
-                    <xsl:value-of select="sum(equipos/máquina/hardware/disco[@tecnoloxía='SCSI']/@capacidade)"/>
+                    <xsl:value-of select="sum(equipos/maquina/hardware/disco[@tecnoloxia='SCSI']/@capacidade)"/>
                 </div>
 
                 <!-- d -->
-                <h2>d) Máquinas con memoria conocida pero sin tecnología indicada</h2>
+                <h2>d) Os nomes das máquinas cuxa capacidade de memoria se coñece, pero non a tecnoloxía desa memoria.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[hardware/memoria and not(hardware/memoria/@tecnoloxía)]">
+                    <xsl:for-each select="equipos/maquina[hardware/memoria and not(hardware/memoria/@tecnoloxia)]">
                         <li>
                             <xsl:value-of select="@nome"/>
                         </li>
@@ -83,9 +83,9 @@
                 </ul>
 
                 <!-- e -->
-                <h2>e) Máquinas Windows con DVD</h2>
+                <h2>e) Máquinas con sistemas operativos Windows e unidades de DVD.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[
+                    <xsl:for-each select="equipos/maquina[
                         contains(config/OS,'Windows')
                         and
                         (hardware/gravadora[@tipo='DVD'] or hardware/lectora[@tipo='DVD'])
@@ -97,9 +97,9 @@
                 </ul>
 
                 <!-- f -->
-                <h2>f) Nombre de la máquina y SO con más de un disco duro</h2>
+                <h2>f) O nome da máquina e o sistema operativo para as máquinas con máis dun disco duro.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[count(hardware/disco) &gt; 1]">
+                    <xsl:for-each select="equipos/maquina[count(hardware/disco) &gt; 1]">
                         <li>
                             <strong>Máquina:</strong>
                             <xsl:value-of select="@nome"/>
@@ -111,9 +111,9 @@
                 </ul>
 
                 <!-- g -->
-                <h2>g) Configuración con IP pero sin gateway</h2>
+                <h2>g) A configuración daquelas máquinas que teñen un enderezo IP listado, pero non a porta de enlace.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[config/IP and not(config/gateway)]">
+                    <xsl:for-each select="equipos/maquina[config/IP and not(config/gateway)]">
                         <li>
                             <strong>
                                 <xsl:value-of select="@nome"/>
@@ -127,9 +127,9 @@
                 </ul>
 
                 <!-- h -->
-                <h2>h) Direcciones IP de la red 192.168.10.0/24</h2>
+                <h2>h) Os enderezos IP dentro da rede 192.168.10.0/24.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina/config/IP[starts-with(.,'192.168.10.')]">
+                    <xsl:for-each select="equipos/maquina/config/IP[starts-with(.,'192.168.10.')]">
                         <li>
                             <xsl:value-of select="."/>
                         </li>
@@ -137,9 +137,9 @@
                 </ul>
 
                 <!-- i -->
-                <h2>i) Máquinas con procesador multinúcleo y 2GB o menos de memoria</h2>
+                <h2>i) Os nomes das máquinas cun procesador multinúcleo e 2 GB ou menos de memoria.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[
+                    <xsl:for-each select="equipos/maquina[
                         hardware/procesador[@num_nucleos &gt; 1]
                         and
                         hardware/memoria &lt;= 2
@@ -151,9 +151,9 @@
                 </ul>
 
                 <!-- j -->
-                <h2>j) Máquinas con capacidad total de disco menor de 80GB</h2>
+                <h2>j) Máquinas que teñen un disco duro (un ou máis) cunha capacidade total inferior a 80 GB.</h2>
                 <ul>
-                    <xsl:for-each select="equipos/máquina[
+                    <xsl:for-each select="equipos/maquina[
                         sum(hardware/disco/@capacidade) &lt; 80
                     ]">
                         <li>
